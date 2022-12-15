@@ -1,0 +1,247 @@
+{
+  "openapi" : "3.0.0",
+  "info" : {
+    "title" : "Agent API",
+    "description" : "Agent Curd Operations",
+    "version" : "2.0.0"
+  },
+  "servers" : [ {
+    "url" : "https://virtserver.swaggerhub.com/DEEPIKA_2/InsuranceAgentAPI/2.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  } ],
+  "paths" : {
+    "/agent" : {
+      "get" : {
+        "description" : "get agent list.",
+        "parameters" : [ {
+          "name" : "bodylimit",
+          "in" : "query",
+          "description" : "The amount of agents returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "pagelimit",
+          "in" : "query",
+          "description" : "The page to return insurance information",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Agent list retrieved successfully .",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AgentList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      },
+      "post" : {
+        "description" : "Submits a new agent,By passing in the appropriate options, you can Add new Agent in the system",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Agent"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Agent"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The Agent submitted successfully."
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/agent/{AgentID}" : {
+      "get" : {
+        "description" : "Retrieves a agent by ID",
+        "parameters" : [ {
+          "name" : "AgentID",
+          "in" : "path",
+          "description" : "The ID of the agent to retrieve",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "example" : "Agent000012334"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Agent retrieved successfully .",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AgentList"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AgentList"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      },
+      "patch" : {
+        "description" : "Update Agent",
+        "parameters" : [ {
+          "name" : "AgentID",
+          "in" : "path",
+          "description" : "The ID of the agent to retrieve",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "$ref" : "#/components/schemas/AgentPatch"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Agent updated successfully.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AgentPatch"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/AgentPatch"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "Agents" : {
+        "type" : "array",
+        "description" : "Array of Agents info",
+        "items" : {
+          "$ref" : "#/components/schemas/Agents"
+        }
+      },
+      "Agent" : {
+        "properties" : {
+          "FromDate" : {
+            "type" : "string",
+            "example" : "10/12/2022"
+          },
+          "toDate" : {
+            "type" : "string",
+            "example" : "12/12/2022"
+          },
+          "AgentID" : {
+            "type" : "integer"
+          },
+          "AgentName" : {
+            "type" : "string",
+            "example" : "Hudson"
+          },
+          "logo" : {
+            "type" : "object",
+            "example" : "D:\\Azure Training\\project\\untitle.png"
+          }
+        },
+        "description" : "Agent Inputs"
+      },
+      "AgentList" : {
+        "properties" : {
+          "FromDate" : {
+            "type" : "string",
+            "example" : "10/12/2022"
+          },
+          "toDate" : {
+            "type" : "string",
+            "example" : "12/12/2022"
+          },
+          "rowsPerPage" : {
+            "type" : "integer",
+            "example" : 10
+          },
+          "prefetchPages" : {
+            "type" : "integer",
+            "example" : 10
+          },
+          "AgentID" : {
+            "type" : "integer"
+          },
+          "AgentName" : {
+            "type" : "string",
+            "example" : "Hudson"
+          },
+          "logo" : {
+            "type" : "object",
+            "example" : "D:\\Azure Training\\project\\untitle.png"
+          }
+        },
+        "description" : "Agent Inputs"
+      },
+      "AgentPatch" : {
+        "properties" : {
+          "AgentID" : {
+            "type" : "integer"
+          },
+          "logo" : {
+            "type" : "object",
+            "example" : "D:\\Azure Training\\project\\untitle.png"
+          },
+          "AgentName" : {
+            "type" : "string",
+            "example" : "Hudson"
+          }
+        },
+        "description" : "Agent Inputs"
+      }
+    }
+  }
+}
