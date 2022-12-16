@@ -1,13 +1,22 @@
 {
   "openapi" : "3.0.0",
   "info" : {
-    "title" : "Agent API",
-    "description" : "Agent Curd Operations",
+    "title" : "Insurance API",
+    "description" : "Insurance API Curd Operations",
     "version" : "2.0.0"
   },
   "servers" : [ {
     "url" : "https://virtserver.swaggerhub.com/DEEPIKA_2/InsuranceAgentAPI/2.0.0",
     "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://virtserver.swaggerhub.com/BHAGYASHRI_1/Insurance/1.0.0",
+    "description" : "SwaggerHub API Auto Mocking"
+  }, {
+    "url" : "https://dev/Insurance/1.0.0",
+    "description" : "Dev server"
+  }, {
+    "url" : "https://prod/Insurcance/1.0.0",
+    "description" : "Production server"
   } ],
   "paths" : {
     "/agent" : {
@@ -150,6 +159,204 @@
                 }
               }
             }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/quote" : {
+      "get" : {
+        "description" : "Retrieves a list of quotes.",
+        "parameters" : [ {
+          "name" : "bodylimit",
+          "in" : "query",
+          "description" : "The amount of quotes returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 20,
+            "minimum" : 10,
+            "type" : "integer",
+            "example" : 15
+          }
+        }, {
+          "name" : "pagelimit",
+          "in" : "query",
+          "description" : "The page to return insurance information",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 5,
+            "minimum" : 1,
+            "type" : "integer",
+            "example" : 2
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of quotes was successfully retrieved.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/QuotePost"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      },
+      "post" : {
+        "description" : "Submits a new quote.",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/QuotePost"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/QuotePost"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The quote was successfully submitted"
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/quote/{quoteID}" : {
+      "get" : {
+        "description" : "Retrieves a quote by ID",
+        "parameters" : [ {
+          "name" : "quoteID",
+          "in" : "path",
+          "description" : "The ID of the quote to retrieve",
+          "required" : true,
+          "style" : "simple",
+          "explode" : false,
+          "schema" : {
+            "type" : "string",
+            "example" : "SUB000012334"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The quote was successfully retrieved.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/QuotePost"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/QuotePost"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
+    },
+    "/submission" : {
+      "get" : {
+        "description" : "Retrieves a list of quotes.",
+        "parameters" : [ {
+          "name" : "bodylimit",
+          "in" : "query",
+          "description" : "The amount of quotes returned",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 20,
+            "minimum" : 10,
+            "type" : "integer",
+            "example" : 15
+          }
+        }, {
+          "name" : "pagelimit",
+          "in" : "query",
+          "description" : "The page to return insurance information",
+          "required" : false,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "maximum" : 5,
+            "minimum" : 1,
+            "type" : "integer",
+            "example" : 2
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "A list of quotes was successfully retrieved.",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Submission"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      },
+      "post" : {
+        "description" : "Submits a new submission.",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SubmissionPost"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/SubmissionPost"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The quote was successfully submitted"
           },
           "400" : {
             "description" : "Bad request"
@@ -350,6 +557,113 @@
           }
         },
         "description" : "Agent Inputs"
+      },
+      "Quotes" : {
+        "type" : "array",
+        "description" : "Array of quotes info",
+        "items" : {
+          "$ref" : "#/components/schemas/Quote"
+        }
+      },
+      "Quote" : {
+        "properties" : {
+          "submissionNo" : {
+            "type" : "string",
+            "example" : "SUB00123434"
+          },
+          "applicantName" : {
+            "type" : "string",
+            "example" : "Liam"
+          },
+          "insuranceType" : {
+            "type" : "string",
+            "example" : "Home Health Care Insurance"
+          }
+        },
+        "description" : "Model containing insurance info"
+      },
+      "QuotePost" : {
+        "properties" : {
+          "effectiveDate" : {
+            "type" : "string",
+            "example" : "08/29/22"
+          },
+          "retroDate" : {
+            "type" : "string",
+            "example" : "08/17/22"
+          },
+          "zipcode" : {
+            "type" : "integer",
+            "example" : 27612
+          },
+          "grossRevenues" : {
+            "type" : "integer",
+            "example" : 2500000
+          },
+          "noOfPhysicians" : {
+            "type" : "integer",
+            "example" : 1
+          },
+          "GL" : {
+            "type" : "boolean",
+            "example" : true
+          },
+          "EBL" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "HNOA" : {
+            "type" : "boolean",
+            "example" : false
+          },
+          "laser" : {
+            "type" : "string",
+            "example" : "full"
+          },
+          "retention" : {
+            "type" : "integer",
+            "example" : 0
+          },
+          "premium" : {
+            "type" : "integer",
+            "example" : 17023
+          }
+        },
+        "description" : "Model containing Insurance info input"
+      },
+      "Submission" : {
+        "properties" : {
+          "fromDate" : {
+            "type" : "string",
+            "example" : "08/29/22"
+          },
+          "toDate" : {
+            "type" : "string",
+            "example" : "12/29/22"
+          },
+          "rowsPerPage" : {
+            "type" : "integer",
+            "example" : 5
+          },
+          "prefetchPages" : {
+            "type" : "integer",
+            "example" : 3
+          }
+        },
+        "description" : "Model containing Submission info input"
+      },
+      "SubmissionPost" : {
+        "properties" : {
+          "fromDate" : {
+            "type" : "string",
+            "example" : "08/29/22"
+          },
+          "toDate" : {
+            "type" : "string",
+            "example" : "12/29/22"
+          }
+        },
+        "description" : "Model containing Submission info input"
       },
       "Policy" : {
         "properties" : {
