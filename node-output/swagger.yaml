@@ -159,6 +159,115 @@
           }
         }
       }
+    },
+    "/policy" : {
+      "get" : {
+        "description" : "Retrieves a Policy by ID",
+        "parameters" : [ {
+          "name" : "PolicyID",
+          "in" : "query",
+          "description" : "The ID of the Policy to retrieve",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string",
+            "example" : "Policy00001234"
+          }
+        }, {
+          "name" : "FromDate",
+          "in" : "query",
+          "description" : "Enter From Date",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "toDate",
+          "in" : "query",
+          "description" : "Enter to Date",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "string"
+          }
+        }, {
+          "name" : "rowsPerPage",
+          "in" : "query",
+          "description" : "Enter Rows Per Page",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        }, {
+          "name" : "preFetchPages",
+          "in" : "query",
+          "description" : "pre Fetch Pages",
+          "required" : true,
+          "style" : "form",
+          "explode" : true,
+          "schema" : {
+            "type" : "integer"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "Policy retrieved successfully .",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Policy"
+                }
+              },
+              "application/xml" : {
+                "schema" : {
+                  "$ref" : "#/components/schemas/Policy"
+                }
+              }
+            }
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      },
+      "post" : {
+        "description" : "Submits a new policy,By passing in the appropriate options, you can Add new policy in the system",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Policy"
+              }
+            },
+            "application/xml" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Policy"
+              }
+            }
+          },
+          "required" : true
+        },
+        "responses" : {
+          "200" : {
+            "description" : "The Policy submitted successfully."
+          },
+          "400" : {
+            "description" : "Bad request"
+          },
+          "401" : {
+            "description" : "Unauthorized"
+          }
+        }
+      }
     }
   },
   "components" : {
@@ -241,6 +350,34 @@
           }
         },
         "description" : "Agent Inputs"
+      },
+      "Policy" : {
+        "properties" : {
+          "PolicyID" : {
+            "type" : "integer"
+          },
+          "Premium" : {
+            "type" : "integer",
+            "example" : 50000
+          },
+          "Terms" : {
+            "type" : "string",
+            "example" : "Amount should not be less than 50000"
+          },
+          "Riders" : {
+            "type" : "string",
+            "example" : "add-on policy name"
+          },
+          "Effective From" : {
+            "type" : "string",
+            "example" : "15/12/2022"
+          },
+          "Active Till" : {
+            "type" : "string",
+            "example" : "15/12/2023"
+          }
+        },
+        "description" : "Policy Inputs"
       }
     }
   }
